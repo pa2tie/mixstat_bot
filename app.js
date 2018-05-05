@@ -15,14 +15,15 @@ const token = process.env.TG_TOKEN;
 var chatIdImon = process.env.CHAT_ID;
 
 const bot = new TelegramBot(token, {polling: true});
-var pollin_check = false;
+var polling_check = false;
 
 bot.on('polling_error', (error) => {
-  if ((error.code == 'ETELEGRAM') && (!pollin_check)) {
+  if ((error.code == 'ETELEGRAM') && (!polling_check)) {
     // do nothing
     console.log(error.response.body);
-    pollin_check = true;
-  } else {
+    polling_check = true;
+  } 
+  if (error.code != 'ETELEGRAM') {
     console.log(error.response.body);
   }
 });
