@@ -20,7 +20,9 @@ const bot = new TelegramBot(token, {polling: true});
 bot.on('polling_error', (error) => {
   if (error.code == 'ETELEGRAM') {
     // do nothing
-  }  
+  } else {
+    console.log(error.response.body);
+  }
 });
 
 process.on('uncaughtException', function (err) {
