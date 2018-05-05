@@ -16,6 +16,11 @@ var chatIdImon = process.env.CHAT_ID;
 
 const bot = new TelegramBot(token, {polling: true});
 
+bot.on('polling_error', (error) => {
+  if (error.code == 'ETELEGRAM') {
+    // do nothing
+  }  
+});
 
 process.on('uncaughtException', function (err) {
   console.log("Error. Node NOT Exiting...");
@@ -55,19 +60,19 @@ var checkYesterdayGeo = false;
 var checkYesterday = false;
 
 new CronJob('0 */30 * * * *', function() { // Every 30 min
-
+  var iter = 0;
   async.doWhilst(
    function(callback2) {
 
     async.waterfall([
-      			function(callback) { // Update date
+            function(callback) { // Update date
 
-      				dateToday = new Date();
-      				yearToday = dateToday.getFullYear();
-      				monthToday = dateToday.getMonth() + 1;
-      				monthToday = (monthToday < 10 ? "0" : "") + monthToday;
-      				dayToday  = dateToday.getDate();
-      				dayToday = (dayToday < 10 ? "0" : "") + dayToday;
+      	      dateToday = new Date();
+      	      yearToday = dateToday.getFullYear();
+      	      monthToday = dateToday.getMonth() + 1;
+      	      monthToday = (monthToday < 10 ? "0" : "") + monthToday;
+      	      dayToday  = dateToday.getDate();
+      	      dayToday = (dayToday < 10 ? "0" : "") + dayToday;
 
               dateYesterday = new Date();
               dateYesterday.setDate(dateToday.getDate() - 1);
@@ -93,7 +98,7 @@ new CronJob('0 */30 * * * *', function() { // Every 30 min
                 callback(null);
               });
             },
-      			function(callback) { // Download today stat (GEO)
+      	    function(callback) { // Download today stat (GEO)
               var fileName = 'imi_stats_export_geo_today.csv';
               downloadFile(fileName, urlTodayGeo, function(check) { 
                 checkTodayGeo = check;
@@ -125,7 +130,7 @@ new CronJob('0 */30 * * * *', function() { // Every 30 min
               });
 
             },
-      			function(callback) { // Upload today stat (GEO)
+      	    function(callback) { // Upload today stat (GEO)
               var fileName = 'imi_stats_export_geo_today.csv';
               uploadZoho(dayToday, monthToday, yearToday, fileName, function(check, zoho) {
                 checkTodayGeo = check;
@@ -140,7 +145,7 @@ new CronJob('0 */30 * * * *', function() { // Every 30 min
                 zohoToday = zoho;
                 callback(null);
               });
-      			},
+      	    },
             function(callback) { // Upload yesterday stat (GEO)
 
               var fileName = 'imi_stats_export_geo_yesterday.csv';
@@ -192,18 +197,19 @@ new CronJob('0 */30 * * * *', function() { // Every 30 min
            ],
            function(err, result) {
             console.log('END POST TODAY STAT');
+	    iter++;
             callback2();
           });
 },
 function() {    
- return (checkToday || checkYesterday || checkYesterdayGeo || checkTodayGeo); 
+ return ((checkToday || checkYesterday || checkYesterdayGeo || checkTodayGeo) && (iter < 3)); 
 },
 function (err, result) {
  console.log('END CYCLE');
 }
 );
 
-}, null, true, 'Europe/Moscow', null, true);
+}, null, true, 'Europe/Moscow');
 
 
 

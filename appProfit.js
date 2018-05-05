@@ -17,6 +17,11 @@ var chatIdImon = process.env.CHAT_ID;
 
 const bot = new TelegramBot(token, {polling: true});
 
+bot.on('polling_error', (error) => {
+  if (error.code == 'ETELEGRAM') {
+    // do nothing
+  }  
+});
 
 process.on('uncaughtException', function (err) {
   console.log("Error. Node NOT Exiting...");
