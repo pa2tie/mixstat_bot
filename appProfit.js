@@ -23,7 +23,8 @@ bot.on('polling_error', (error) => {
     // do nothing
     console.log(error.response.body);
     pollin_check = true;
-  } else {
+  } 
+  if (error.code != 'ETELEGRAM') {
     console.log(error.response.body);
   }
 });
