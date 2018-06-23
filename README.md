@@ -1,3 +1,6 @@
+<a href="https://heroku.com/deploy?template=https://github.com/pa2tie/mixstat_bot">
+  <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy">
+</a>
 # MIX Stat TGbot
 
 HI! I'll help you make a telegram bot for ProfitSocial and iMonetizeIt.
