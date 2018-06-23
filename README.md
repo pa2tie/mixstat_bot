@@ -1,6 +1,6 @@
 <a href="https://heroku.com/deploy?template=https://github.com/pa2tie/mixstat_bot">
   <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy">
-</a><br><br>
+</a><br>
 
 # MIX Stat TGbot
 
