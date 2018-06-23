@@ -1,7 +1,6 @@
 <a href="https://heroku.com/deploy?template=https://github.com/pa2tie/mixstat_bot">
   <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy">
 </a><br><br>
-
 # MIX Stat TGbot
 
 HI! I'll help you make a telegram bot for ProfitSocial and iMonetizeIt.
@@ -14,9 +13,10 @@ This bot:
 
 How install:
 1. You need account on <a href="heroku.com">heroku.com</a> and <a href="github.com">github.com</a>
-2. Copy this repo on your github
-3. Go to <a href="https://dashboard.heroku.com/new-app">https://dashboard.heroku.com/new-app</a> and create new app (add name, choose region)
-4. Go to "Setting" your app and click "Reveal Config Vars", then add variables:
+2. Create Telegram bot in @BotFather and copy API key
+3. Add @RawDataBot to your chat and copy chat_id
+4. Click "Deploy to heroku" button on top and create new app (add name, choose region)
+5. Go to "Setting" your app and click "Reveal Config Vars", then add variables:
 <br>PROFIT_LOGIN = ProfitSocial authorization mail
 <br>PROFIT_PASSWORD = ProfitSocial authorization password
 <br>IMON_LOGIN = imonetizeit authorization mail
@@ -24,13 +24,7 @@ How install:
 <br>TG_TOKEN = api token your telegram bot
 <br>CHAT_ID = chat id in telegram, where bot will drop lins
 <br>TZ = your Time Zone, example: Europe/Moscow (view all zones https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
-5. Scroll down and click "Add buildpacks", insert this links
-<br>https://github.com/heroku/heroku-buildpack-nodejs.git
-<br>https://github.com/jontewks/puppeteer-heroku-buildpack
-6. Go to "Deploy" tab and choose "Deployment method" > GitHub
-7. Click "Enable Automatics Deploys", if you want update bot in the future
-8. Click "Deploy branch" and wait deploy
-9. Choose "Resourses" tab, then OFF "web" switcher and ON "worker" (logs in "More" > "View logs")
-10. Add your bot in TG chat
+6. Choose "Resourses" tab, then OFF "web" switcher and ON all "worker" (logs in "More" > "View logs")
+7. Add your bot in TG chat
 
 WELL DONE!
