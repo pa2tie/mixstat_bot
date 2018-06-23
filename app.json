@@ -1,0 +1,7 @@
+{
+  "name": "MixStat Bot",
+  "description": "Bot send stat in Telegram chat from CPA-networks",
+  "repository": "https://github.com/pa2tie/mixstat_bot",
+  "logo": "https://node-js-sample.herokuapp.com/node.png",
+  "keywords": ["node", "puppeteer", "telegram"]
+}
