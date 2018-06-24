@@ -9,6 +9,7 @@ const xml2csv = require('xml2csv')
 
 var profit_login = process.env.PROFIT_LOGIN;
 var profit_pass = process.env.PROFIT_PASSWORD;
+var language_msg = process.env.LANGUAGE_MSG;
 var profit_cookies;
 
 
@@ -188,22 +189,42 @@ new CronJob('0 */30 * * * *', function() { // Every 30 min
             },
             function(callback) { // Send message
               if (!checkTodayGeoProfit && !checkYesterdayGeoProfit && !checkTodayProfit && !checkYesterdayProfit) {
-                var options = {
-                  reply_markup: JSON.stringify({
-                    inline_keyboard: [
-                    [{ text: '💲 ЗА СЕГОДНЯ', url: zohoTodayProfit }],
-                    [{ text: '💲 ЗА ВЧЕРА', url: zohoYesterdayProfit }],
-                    [{ text: '🔃 ВЫГРУЗКА ГЕО (СЕГОДНЯ)', url: zohoTodayGeoProfit }],
-                    [{ text: '🔃 ВЫГРУЗКА ГЕО (ВЧЕРА)', url: zohoYesterdayGeoProfit }]
-                    ]
-                  })
-                };
+                var options;
+                
                 if (msgIDProfit != "") {
                   bot.deleteMessage(chatIdImon, msgIDProfit);
                 }
-                bot.sendMessage(chatIdImon, "✔️СТАТИСТИКА С PS:", options).then(sender => {
-                  msgIDProfit = sender.message_id;
-                });
+                
+                if (language_msg == "RU") {
+                  options = {
+                    reply_markup: JSON.stringify({
+                      inline_keyboard: [
+                      [{ text: '💲 ЗА СЕГОДНЯ', url: zohoTodayProfit }],
+                      [{ text: '💲 ЗА ВЧЕРА', url: zohoYesterdayProfit }],
+                      [{ text: '🔃 ВЫГРУЗКА ГЕО (СЕГОДНЯ)', url: zohoTodayGeoProfit }],
+                      [{ text: '🔃 ВЫГРУЗКА ГЕО (ВЧЕРА)', url: zohoYesterdayGeoProfit }]
+                      ]
+                    })
+                  };
+                  bot.sendMessage(chatIdImon, "✔️СТАТИСТИКА С PS:", options).then(sender => {
+                    msgIDProfit = sender.message_id;
+                  });
+                } else {
+                  options = {
+                    reply_markup: JSON.stringify({
+                      inline_keyboard: [
+                      [{ text: '💲 TODAY', url: zohoTodayProfit }],
+                      [{ text: '💲 YESTERDAY', url: zohoYesterdayProfit }],
+                      [{ text: '🔃 TODAY (GEO)', url: zohoTodayGeoProfit }],
+                      [{ text: '🔃 YESTERDAY (GEO)', url: zohoYesterdayGeoProfit }]
+                      ]
+                    })
+                  };
+                  bot.sendMessage(chatIdImon, "✔️STAT FROM PS:", options).then(sender => {
+                    msgIDProfit = sender.message_id;
+                  });
+                }
+                
 
                 callback(null);
               } else {
