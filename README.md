@@ -13,7 +13,7 @@ This bot:
 
 
 How install:
-1. You need account on <a href="heroku.com">heroku.com</a> and <a href="github.com">github.com</a>
+1. You need account on <a href="heroku.com">heroku.com</a>
 2. Create Telegram bot in @BotFather and copy API key
 3. Add @RawDataBot to your chat and copy chat_id
 4. Click "Deploy to heroku" button on top and create new app (add name, choose region)
