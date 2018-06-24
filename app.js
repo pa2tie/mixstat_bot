@@ -8,8 +8,8 @@ var CronJob = require('cron').CronJob;
 
 var imon_login = process.env.IMON_LOGIN;
 var imon_pass = process.env.IMON_PASSWORD;
-var imon_cookies;
-
+var language_msg = process.env.LANGUAGE_MSG;
+var imon_cookies; 
 
 const token = process.env.TG_TOKEN;
 var chatIdImon = process.env.CHAT_ID;
@@ -170,22 +170,41 @@ new CronJob('0 */30 * * * *', function() { // Every 30 min
             },
             function(callback) { // Send message
               if (!checkTodayGeo && !checkYesterdayGeo && !checkToday && !checkYesterday) {
-                var options = {
-                  reply_markup: JSON.stringify({
-                    inline_keyboard: [
-                    [{ text: '💰 ЗА СЕГОДНЯ', url: zohoToday }],
-                    [{ text: '💰 ЗА СЕГОДНЯ (ГЕО)', url: zohoTodayGeo }],
-                    [{ text: '💰 ЗА ВЧЕРА', url: zohoYesterday }],
-                    [{ text: '💰 ЗА ВЧЕРА (ГЕО)', url: zohoYesterdayGeo }]
-                    ]
-                  })
-                };
-                if (msgID != "") {
+                var options;
+		      
+		if (msgID != "") {
                   bot.deleteMessage(chatIdImon, msgID);
                 }
-                bot.sendMessage(chatIdImon, "📈СТАТИСТИКА С МОНЕТЫ:" ,options).then(sender => {
-                  msgID = sender.message_id;
-                });
+		      
+		if (language_msg == "RU") {
+			options = {
+				reply_markup: JSON.stringify({
+				  inline_keyboard: [
+				  [{ text: '💰 ЗА СЕГОДНЯ', url: zohoToday }],
+				  [{ text: '💰 ЗА СЕГОДНЯ (ГЕО)', url: zohoTodayGeo }],
+				  [{ text: '💰 ЗА ВЧЕРА', url: zohoYesterday }],
+				  [{ text: '💰 ЗА ВЧЕРА (ГЕО)', url: zohoYesterdayGeo }]
+				  ]
+				})
+			};
+			bot.sendMessage(chatIdImon, "📈СТАТИСТИКА С МОНЕТЫ:" ,options).then(sender => {
+			  msgID = sender.message_id;
+			});
+		} else {
+			options = {
+				  reply_markup: JSON.stringify({
+				    inline_keyboard: [
+				    [{ text: '💰 TODAY', url: zohoToday }],
+				    [{ text: '💰 TODAY (GEO)', url: zohoTodayGeo }],
+				    [{ text: '💰 YESTERDAY', url: zohoYesterday }],
+				    [{ text: '💰 YESTERDAY (GEO)', url: zohoYesterdayGeo }]
+				    ]
+				  })
+			};
+			bot.sendMessage(chatIdImon, "📈STAT FROM IMONETIZEIT:" ,options).then(sender => {
+			  msgID = sender.message_id;
+			});
+		}
 
                 callback(null);
               } else {
