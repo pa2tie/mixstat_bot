@@ -24,6 +24,7 @@ How install:
 <br>IMON_PASSWORD = imonetizeit authorization password
 <br>TG_TOKEN = api token your telegram bot
 <br>CHAT_ID = chat id in telegram, where bot will drop lins
+<br>LANGUAGE_MSG = language messages (RU or EN(default))
 <br>TZ = your Time Zone, example: Europe/Moscow (view all zones https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
 6. Choose "Resourses" tab, then OFF "web" switcher and ON all "worker" (logs in "More" > "View logs")
 7. Add your bot in TG chat
